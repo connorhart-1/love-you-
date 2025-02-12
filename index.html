@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Anniversary!</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-size: cover;
+            background-position: center;
+            overflow: hidden;
+            position: relative;
+            transition: background-image 0.5s ease-in-out;
+        }
+        h1 {
+            font-size: 2em;
+            animation: bounce 1s infinite alternate;
+            z-index: 2;
+        }
+        .buttons {
+            margin-top: 20px;
+            z-index: 2;
+        }
+        button {
+            font-size: 1.5em;
+            padding: 10px 20px;
+            margin: 10px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            transition: transform 0.3s ease;
+        }
+        .yes {
+            background-color: #4CAF50;
+            color: white;
+        }
+        .no {
+            background-color: #f44336;
+            color: white;
+        }
+        button:hover {
+            transform: scale(1.2);
+        }
+        @keyframes bounce {
+            from { transform: translateY(0); }
+            to { transform: translateY(-10px); }
+        }
+    </style>
+</head>
+<body>
+    <audio id="snoopyMusic" autoplay loop>
+        <source src="https://www.myinstants.com/media/sounds/peanuts-theme.mp3" type="audio/mpeg">
+    </audio>
+    <h1 id="question">Will you be my girlfriend?</h1>
+    <div class="buttons">
+        <button class="yes" onclick="yesClicked()">Yes</button>
+        <button class="no" id="noButton" onclick="noClicked()">No</button>
+    </div>
+    
+    <script>
+        let size = 1;
+        let clickCount = 0;
+        let backgrounds = [
+            'https://i.imgur.com/jb2bPZP.jpg',
+            'https://i.imgur.com/7DdFhnr.jpg',
+            'https://i.imgur.com/BzDqDqG.jpg',
+            'https://i.imgur.com/JeVxPOi.jpg',
+            'https://i.imgur.com/8mZfJ8K.jpg',
+            'https://i.imgur.com/q3HkLh5.jpg', // Sad cat
+            'https://i.imgur.com/YM5pzZ9.jpg' // More sad cat
+        ];
+        let noTexts = [
+            'Are you sure? 😢',
+            'Really? 🥺',
+            'Think again... 😭',
+            'No isn’t an option! 😡',
+            'PLEASE DON’T DO THIS 😱',
+            'I CAN’T GO ON WITHOUT YOU 💀',
+            'YOU ARE BREAKING MY HEART 💔'
+        ];
+        let funnySounds = [
+            'https://www.myinstants.com/media/sounds/vine-boom.mp3',
+            'https://www.myinstants.com/media/sounds/windows-xp-error.mp3'
+        ];
+        function playSound(url) {
+            let audio = new Audio(url);
+            audio.play();
+        }
+        function noClicked() {
+            size *= 1.5;
+            clickCount++;
+            let randomBg = backgrounds[Math.floor(Math.random() * backgrounds.length)];
+            document.body.style.backgroundImage = `url('${randomBg}')`;
+            let newText = noTexts[Math.min(clickCount, noTexts.length - 1)];
+            document.getElementById('noButton').innerText = newText;
+            playSound(funnySounds[Math.floor(Math.random() * funnySounds.length)]);
+        }
+        function yesClicked() {
+            playSound('https://www.myinstants.com/media/sounds/tada.mp3');
+            document.body.innerHTML = `
+                <h1>YAY! I LOVE YOU! ❤️</h1>
+                <p>Happy 6th Anniversary! I am so grateful for every moment we’ve spent together, and I can’t wait for many more. 
+                You inspire me every day, and I will always support you in achieving your dreams and our dreams together. 
+                You are my world, and I love you endlessly! ❤️</p>
+                <div style="font-size: 3em;">🎉🎉🎉</div>
+            `;
+        }
+    </script>
+</body>
+</html>
