@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Anniversary!</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #ffccdc;
+            overflow: hidden;
+            position: relative;
+        }
+        h1 {
+            font-size: 2em;
+            animation: bounce 1s infinite alternate;
+        }
+        .buttons {
+            margin-top: 20px;
+        }
+        button {
+            font-size: 1.5em;
+            padding: 10px 20px;
+            margin: 10px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            transition: transform 0.3s ease;
+        }
+        .yes {
+            background-color: #4CAF50;
+            color: white;
+        }
+        .no {
+            background-color: #f44336;
+            color: white;
+        }
+        button:hover {
+            transform: scale(1.2);
+        }
+        .funny-img {
+            position: absolute;
+            width: 150px;
+            height: auto;
+        }
+        @keyframes bounce {
+            from { transform: translateY(0); }
+            to { transform: translateY(-10px); }
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <h1>Will you be my valentine?</h1>
+    <div class="buttons">
+        <button class="yes" onclick="yesClicked()">Yes</button>
+        <button class="no" onclick="noClicked()">No</button>
+    </div>
+    
+    <script>
+        let size = 1;
+        let clickCount = 0;
+        function noClicked() {
+            size *= 1.5;
+            clickCount++;
+            let images = [
+                'https://i.imgur.com/4Y4QJno.gif',
+                'https://i.imgur.com/kqUT5R2.png',
+                'https://i.imgur.com/L3kLz1Y.jpg',
+                'https://i.imgur.com/If5iyML.gif',
+                'https://i.imgur.com/3h2povU.png'
+            ];
+            let randomImage = images[Math.floor(Math.random() * images.length)];
+            let randomEmoji = ['😂', '🤣', '😆', '🤪', '😜'][Math.floor(Math.random() * 5)];
+            
+            document.body.innerHTML = `
+                <h1>Will you be my valentine?</h1>
+                <div class="buttons">
+                    <button class="yes" style="font-size: ${size}em; padding: ${size * 10}px ${size * 20}px;" onclick="yesClicked()">Yes</button>
+                    <button class="no" onclick="noClicked()">No</button>
+                </div>
+                <img class="funny-img" src="${randomImage}" style="top:${Math.random() * 80}vh; left:${Math.random() * 80}vw; animation: spin 1s infinite linear;">
+                <h2>${randomEmoji} You can't escape destiny! ${randomEmoji}</h2>
+            `;
+        }
+        function yesClicked() {
+            document.body.innerHTML = `<h1>YAY! I LOVE YOU! ❤️</h1>`;
+            let confetti = document.createElement("div");
+            confetti.innerHTML = "🎉🎉🎉";
+            confetti.style.fontSize = "5em";
+            document.body.appendChild(confetti);
+            
+            setTimeout(() => {
+                document.body.innerHTML += '<h2>Prepare for a lifetime of memes and love! 😘</h2>';
+            }, 2000);
+        }
+    </script>
+</body>
+</html>
